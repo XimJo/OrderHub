@@ -82,4 +82,54 @@ public class OrderService
         foreach (var action in undoHistory)
             Console.WriteLine($"  {action}");
     }
+// 2 этап 
+    // 1
+    private readonly LinkedList<Order> orderHistory = new();
+    private LinkedListNode<Order>? current;
+
+    public void InitHistory(params Order[] orders)
+    {   
+        orderHistory.Clear();
+        foreach (var order in orders)
+            current = orderHistory.AddLast(order);
+
+        current ??= orderHistory.Last;
+    }
+
+    public bool PlaceOrderAfterCurrent(Order order)
+    {
+        if (current == null)
+        {
+            current = orderHistory.AddLast(order);
+            return true;
+        }
+
+        var newNode = orderHistory.AddAfter(current, order);
+
+        current = newNode;
+
+        return true;
+    }
+
+    public bool TryFindOrder(string customerName, out Order? order)
+    {
+        var node = orderHistory.FirstOrDefault(n => n.CustomerName == customerName);
+
+        if (node != null)
+        {
+            order = node;
+            return true;
+        }
+
+        order = null;
+        return false;
+    }
+
+    public void PrintHistory()
+    {
+        Console.WriteLine("История заказов клиента:");
+        foreach (var order in orderHistory)
+            Console.WriteLine($"  {order}");
+        Console.WriteLine($"Текущий заказ: {current?.Value}");
+    }
 }
