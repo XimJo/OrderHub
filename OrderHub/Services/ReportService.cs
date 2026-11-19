@@ -4,7 +4,7 @@ using OrderHub.Domain;
 
 namespace OrderHub.Services;
 
-public class ReportService
+public static class ReportService
 {
 
     public static List<string> ExpensiveProducts(IEnumerable<Product> products, decimal threshold)
@@ -73,7 +73,6 @@ public class ReportService
             .ToList();
     }
 
- 
     public static List<string> TopCustomers(
         IEnumerable<Customer> customers,
         IEnumerable<Order> orders,
