@@ -4,7 +4,7 @@ namespace OrderHub.Services;
 public class OrderService
 {
     // ЗАДАЧА: объявите три коллекции с точной сигнатурой
-    private readonly List<Order> allOrders = new();
+    private readonly List<Order> allOrders = [];
     private readonly Queue<Order> pendingQueue = new();
     private readonly Stack<string> undoHistory = new();
 
@@ -88,7 +88,7 @@ public class OrderService
     private LinkedListNode<Order>? current;
 
     public void InitHistory(params Order[] orders)
-    {   
+    {
         orderHistory.Clear();
         foreach (var order in orders)
             current = orderHistory.AddLast(order);

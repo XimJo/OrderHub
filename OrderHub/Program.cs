@@ -21,3 +21,13 @@ service.PrintHistory();
 
 Console.WriteLine(service.TryFindOrder("Иванов", out var found) + " " + found);
 Console.WriteLine(service.TryFindOrder("Нет такого", out _)); // false
+
+var warehouse = new WarehouseService();
+
+warehouse.Receive("Клавиатура", 10);
+warehouse.Receive("Клавиатура", 5);   // одна запись, количество 15
+warehouse.Receive("Монитор", 3);
+warehouse.Sell("Монитор", 1);
+warehouse.Sell("Монитор", 99);        // предупреждение, остаток не меняется
+warehouse.Sell("Проектор", 1);        // товара нет, без исключения
+warehouse.PrintStock();
