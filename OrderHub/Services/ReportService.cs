@@ -113,6 +113,3 @@ public static class ReportService
         return list.Where(o => o.Price > avg).ToList();
     }
 }
-
-
-
